@@ -2,6 +2,7 @@
 
 import { AsyncAPIFormats } from '../formats';
 import { operationMessagesUnambiguity } from './functions/operationMessagesUnambiguity';
+import { channelServers3 } from './functions/channelServers3';
 import { pattern } from '@stoplight/spectral-functions';
 
 export const v3CoreRuleset = {
@@ -56,6 +57,16 @@ export const v3CoreRuleset = {
           match: '#\\/servers\\/', // If doesn't match, rule fails.
         },
       },
-    }
+    },
+    'asyncapi3-channel-servers': {
+      description: 'Channel servers must be defined in the root "servers" object.',
+      message: '{{error}}',
+      severity: 'error',
+      recommended: true,
+      given: '$',
+      then: {
+        function: channelServers3,
+      },
+    },
   },
 };
